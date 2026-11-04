@@ -101,9 +101,9 @@ def main() -> None:
     write_json(out / "final_validation.json", report)
 
     lines = [
-        "# Person 1 final pipeline report",
+        "# Dataset Pipeline and Feature Report",
         "",
-        f"Overall validation: **{report['status']}**.",
+        f"I completed and validated the dataset, preprocessing, split-generation, and feature-extraction pipeline. Overall validation: **{report['status']}**.",
         "",
         "## Completed outputs",
         "",

@@ -1,6 +1,6 @@
 # Detecting AI-Generated Images Across Generators
 
-NTU SC4001 Neural Networks and Deep Learning group project investigating whether detectors trained on one image generator generalize to unseen generators. This branch contains Person 1's completed dataset audit, leakage-safe split generation, preprocessing controls, frozen CLIP feature extraction, and input-standardization ablation. These ablation numbers are not the group's final main-classifier results.
+NTU SC4001 Neural Networks and Deep Learning group project investigating whether detectors trained on one image generator generalize to unseen generators. I implemented the dataset audit, leakage-safe split generation, preprocessing controls, frozen CLIP feature extraction, and input-standardization ablation documented on this branch. These ablation numbers are not the group's final main-classifier results.
 
 ## Dataset and provenance
 
@@ -125,11 +125,11 @@ The extractor uses CUDA when available, falls back to CPU, and halves the batch 
 
 ## Downloading Precomputed CLIP Features
 
-The [Person 1 — CLIP Features v1 release](https://github.com/DarrenIsMe/Detecting-AI-Generated-Images-Across-Generators/releases/tag/person1-features-v1) provides one ZIP per preprocessing condition. The archives contain NPZ feature arrays, `feature_index.csv`, sanitized extraction metadata, and attribution/licence notices. They do not contain source or processed images.
+The [Precomputed CLIP Features v1 release](https://github.com/DarrenIsMe/Detecting-AI-Generated-Images-Across-Generators/releases/tag/person1-features-v1) provides one ZIP per preprocessing condition. The archives contain NPZ feature arrays, `feature_index.csv`, sanitized extraction metadata, and attribution/licence notices. They do not contain source or processed images.
 
 ### Option A — use the release assets
 
-Download the required condition and extract it into the repository root. For example, Person 2 can use the standardized features without repeating preprocessing or CLIP inference:
+Download the required condition and extract it into the repository root. For example, the standardized features can be used for model experiments without repeating preprocessing or CLIP inference:
 
 ```powershell
 Invoke-WebRequest `
@@ -159,7 +159,7 @@ Verify a download before extraction:
 (Get-FileHash .\clip_features_standardized.zip -Algorithm SHA256).Hash
 ```
 
-Person 2 can join `feature_index.csv` to any committed split manifest using `image_id` and train a linear classifier directly. For the completed strict experiment:
+The teammate responsible for model experiments can join `feature_index.csv` to any committed split manifest using `image_id` and train a linear classifier directly. For the completed strict experiment:
 
 ```powershell
 python scripts\format_ablation.py `
@@ -185,7 +185,7 @@ python scripts\prepare_images.py standardized
 python scripts\extract_clip.py standardized
 ```
 
-Person 2 still needs original or reproducibly processed images for the CNN baseline. Person 3 needs original or processed images to create new JPEG/resizing robustness conditions. Image data is not included in the release. Regenerate `data/manifests/master_manifest.csv` with `inspect_datasets.py` when source Parquet rows, filenames, or image paths are required; generated manifests must not rely on another user's absolute paths.
+The CNN baseline still requires original or reproducibly processed images. The teammate responsible for robustness experiments needs original or processed images to create new JPEG/resizing conditions. Image data is not included in the release. Regenerate `data/manifests/master_manifest.csv` with `inspect_datasets.py` when source Parquet rows, filenames, or image paths are required; generated manifests must not rely on another user's absolute paths.
 
 The release features are derived from Tiny-GenImage/GenImage and are distributed conservatively under CC BY-NC-SA 4.0 for non-commercial research and teaching, with attribution and share-alike requirements. Review the licence notice inside each archive.
 
@@ -209,9 +209,9 @@ with np.load(root / row["feature_file"]) as archive:
 
 Images and embeddings must be shared separately through team-approved storage; do not add them to Git. Teammates can reproduce them from the pinned dataset and configuration above.
 
-## Person 1 input-standardization ablation
+## Input-Standardization Ablation
 
-A balanced logistic regression (`C=1`, `class_weight="balanced"`, maximum 2,000 iterations) used identical strict splits and classifier settings for all conditions. Midjourney was never used for training or validation.
+I ran a balanced logistic regression (`C=1`, `class_weight="balanced"`, maximum 2,000 iterations) with identical strict splits and classifier settings for all conditions. Midjourney was never used for training or validation.
 
 | Condition | Validation accuracy | Strict diffusion test accuracy | Strict test F1 | Midjourney accuracy, separate |
 |---|---:|---:|---:|---:|
@@ -220,7 +220,7 @@ A balanced logistic regression (`C=1`, `class_weight="balanced"`, maximum 2,000 
 | Lossless re-encoded PNG | 98.600% | 61.272% | 39.130% | 51.500% |
 | Common JPEG Q95 | 97.800% | 55.176% | 22.951% | 49.100% |
 
-These are Person 1 format-control results, not final project classifier performance. Detailed per-generator metrics and confusion matrices are under `results/input_standardization_ablation/`.
+These are my format-control results, not the final project classifier performance. Detailed per-generator metrics and confusion matrices are under `results/input_standardization_ablation/`.
 
 The completed consistency validation reloaded all 35,000 features for every condition and verified 512 dimensions, exact feature/image-ID ordering, full manifest and split coverage, and absence of NaN/Inf values. The ablation regenerated classifier predictions from those validated features for all four conditions. No separate per-image prediction-consistency artifact was saved, so the repository does not claim one.
 
@@ -236,11 +236,11 @@ python scripts\format_ablation.py `
 
 ## Teammate handoff
 
-Person 2 should preserve the committed `split` assignments and join features by `image_id`. The manifests expose binary labels, generator identities/families, duplicate groups, protocol folds, and evaluation groups for GAN-to-diffusion and leave-one-generator-out experiments.
+The teammate responsible for model experiments should preserve the committed `split` assignments and join features by `image_id`. The manifests expose binary labels, generator identities/families, duplicate groups, protocol folds, and evaluation groups for GAN-to-diffusion and leave-one-generator-out experiments.
 
-Person 3 should use only test rows, retain `image_id` through every JPEG/resizing transformation, and re-extract transformed features with the same CLIP configuration. The locally generated master manifest supplies Parquet shard/row locations and original filenames for failure analysis.
+The teammate responsible for robustness experiments should use only test rows, retain `image_id` through every JPEG/resizing transformation, and re-extract transformed features with the same CLIP configuration. The locally generated master manifest supplies Parquet shard/row locations and original filenames for failure analysis.
 
-See [the detailed Person 2/3 handoff](results/final/HANDOFF_PERSON2_PERSON3.md).
+See [the detailed teammate handoff](results/final/HANDOFF_PERSON2_PERSON3.md).
 
 ## Validation
 

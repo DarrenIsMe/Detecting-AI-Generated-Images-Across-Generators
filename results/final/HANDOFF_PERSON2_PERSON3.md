@@ -1,10 +1,10 @@
-# Handoff for Person 2 and Person 3
+# Teammate Handoff
 
 ## Stable identifiers and joins
 
 Use `image_id` as the only join key. Do not join by filename. Every processed manifest and feature index contains all 35,000 unique image IDs. Feature rows must be loaded using both `feature_file` and `feature_row`; verify that the archive's `image_ids[feature_row]` equals the CSV `image_id`.
 
-## Person 2: model experiments
+## Model experiments
 
 1. Select one CSV from `data/splits/` and keep its `split` assignments unchanged.
 2. Join it to one condition's `feature_index.csv`, or to the matching processed manifest for image training.
@@ -14,7 +14,7 @@ Use `image_id` as the only join key. Do not join by filename. Every processed ma
 
 Recommended default input condition: `standardized`. Always compare with `original_encoded`; treat `reencode_only` and `jpeg_common` as controls, not extra training data.
 
-## Person 3: robustness and attacks
+## Robustness and attack experiments
 
 1. Start from test rows only in the chosen split manifest.
 2. Resolve clean input paths through the matching condition manifest in `data/manifests/`.
@@ -39,7 +39,7 @@ Two supported routes are available:
 
 ### Option A — GitHub Release
 
-Download a ZIP from [Person 1 — CLIP Features v1](https://github.com/DarrenIsMe/Detecting-AI-Generated-Images-Across-Generators/releases/tag/person1-features-v1) and extract it into the repository root:
+Download a ZIP from [Precomputed CLIP Features v1](https://github.com/DarrenIsMe/Detecting-AI-Generated-Images-Across-Generators/releases/tag/person1-features-v1) and extract it into the repository root:
 
 ```powershell
 Invoke-WebRequest `
@@ -48,7 +48,7 @@ Invoke-WebRequest `
 Expand-Archive .\clip_features_standardized.zip -DestinationPath . -Force
 ```
 
-Person 2 can immediately join the extracted `feature_index.csv` to the committed split CSVs using `image_id` and train the linear classifier. No images are required for this feature-based workflow.
+The teammate responsible for model experiments can immediately join the extracted `feature_index.csv` to the committed split CSVs using `image_id` and train the linear classifier. No images are required for this feature-based workflow.
 
 ### Option B — reproduce locally
 
@@ -66,7 +66,7 @@ python scripts\prepare_images.py standardized
 python scripts\extract_clip.py standardized
 ```
 
-Person 2 needs original or reproducibly processed images for the CNN baseline. Person 3 needs image data to generate new JPEG/resizing robustness conditions. Images are not included in the GitHub Release. Run `inspect_datasets.py` to regenerate `data/manifests/master_manifest.csv` whenever source Parquet rows or filenames are required.
+The CNN baseline requires original or reproducibly processed images. Robustness experiments require image data to generate new JPEG/resizing conditions. Images are not included in the GitHub Release. Run `inspect_datasets.py` to regenerate `data/manifests/master_manifest.csv` whenever source Parquet rows or filenames are required.
 
 ## Reproduction sequence
 

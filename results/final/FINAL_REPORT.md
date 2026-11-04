@@ -1,6 +1,6 @@
-# Person 1 final pipeline report
+# Dataset Pipeline and Feature Report
 
-Overall validation: **ok**.
+I completed and validated the dataset, preprocessing, split-generation, and feature-extraction pipeline. Overall validation: **ok**.
 
 ## Completed outputs
 
