@@ -31,7 +31,7 @@ Each condition contains a single configuration directory under:
 - `data/features/reencode_only/`
 - `data/features/jpeg_common/`
 
-Within it, use `feature_index.csv`, `extraction_settings.json`, and the 18 per-shard `.npz` archives. The extractor validates caches before reuse and recomputes an invalid or partial shard.
+Within it, use `feature_index.csv`, `extraction_settings.json`, and the 18 per-shard `.npz` archives. The extractor binds caches to exact input bytes, preprocessing settings, checkpoint hashes, and feature-file hashes; it recomputes an invalid or partial shard.
 
 ## Reproduction sequence
 
@@ -39,7 +39,9 @@ From PowerShell in the project root:
 
 ```powershell
 .\.venv\Scripts\Activate.ps1
-python scripts\validate_pipeline.py
+python scripts\inspect_datasets.py
+python scripts\make_splits.py
+python scripts\validate_pipeline.py --master-manifest data\manifests\master_manifest.csv
 python scripts\prepare_images.py standardized
 python scripts\extract_clip.py standardized
 python scripts\format_ablation.py `

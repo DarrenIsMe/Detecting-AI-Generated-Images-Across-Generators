@@ -19,3 +19,5 @@
 - Preprocess: bicubic resize to 224, center crop 224x224, RGB conversion, OpenAI mean `(0.48145466, 0.4578275, 0.40821073)`, OpenAI std `(0.26862954, 0.26130258, 0.27577711)`
 
 The checkpoint is stored under `data/models/open_clip/`. Extraction metadata records the configuration hash, requested/effective batch sizes, ordered image IDs, and checkpoint cache path.
+
+Cache metadata schema 2 additionally binds every shard to the exact processed-image bytes, preprocessing settings, OpenCLIP transform, checkpoint files, embedding dimensions, and saved feature-file bytes. `verified_legacy_cache.json` attests the exact 72 shard caches from the completed baseline run, allowing those files—and only those files—to receive upgraded metadata without feature re-extraction.
