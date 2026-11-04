@@ -1,0 +1,1 @@
+image_id,source_split,shard,row_in_shard,original_filename,original_uri,label,label_name,generator,generator_family,source_dataset,source_image_id,imagenet_class_id,width,height,aspect_ratio,original_format,original_mode,encoded_size_bytes,has_exif,encoded_sha256,pixel_sha256,perceptual_hash,processing_status,error,duplicate_group_id,duplicate_group_kind

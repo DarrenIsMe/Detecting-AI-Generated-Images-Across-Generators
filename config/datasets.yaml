@@ -1,0 +1,60 @@
+dataset:
+  name: tiny_genimage
+  repo_id: TheKernel01/Tiny-GenImage
+  revision: 89c4fe9efd0ebc7ce5c7641ef57d578ccd639c69
+  license: CC-BY-NC-SA-4.0
+  # Override locally with SC4001_TINY_GENIMAGE_DIR without editing this file.
+  raw_dir: data/raw/tiny_genimage_hf
+  parquet_glob: data/*.parquet
+  labels:
+    0: real
+    1: fake
+  generators:
+    0: {name: Real, family: real}
+    1: {name: ADM, family: diffusion}
+    2: {name: BigGAN, family: gan}
+    3: {name: GLIDE, family: diffusion}
+    4: {name: Midjourney, family: unknown}
+    5: {name: SD14, family: diffusion, available: false}
+    6: {name: SD15, family: diffusion}
+    7: {name: VQDM, family: diffusion}
+    8: {name: Wukong, family: diffusion}
+
+reproducibility:
+  seed: 4001
+
+audit:
+  perceptual_hash: phash
+  perceptual_hash_size: 8
+  near_duplicate_hamming_distance: 4
+
+processing:
+  output_size: 224
+  resize_method: bicubic
+  crop_method: center
+  png_compress_level: 6
+  jpeg_quality: 95
+  variants:
+    - original_encoded
+    - reencode_only
+    - standardized
+    - jpeg_common
+
+splits:
+  logo_real_targets:
+    train: 12000
+    validation: 3000
+    test: 2500
+  strict_biggan_to_diffusion:
+    train_generators: [BigGAN]
+    test_generators: [ADM, GLIDE, SD15, VQDM, Wukong]
+    separate_test_generators: [Midjourney]
+
+clip:
+  model_name: ViT-B-32-quickgelu
+  pretrained: openai
+  batch_size: 64
+  device: auto
+  l2_normalize: true
+  # Override locally with SC4001_CLIP_CACHE_DIR.
+  cache_dir: data/models/open_clip

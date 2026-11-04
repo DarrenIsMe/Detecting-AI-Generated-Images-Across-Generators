@@ -1,0 +1,812 @@
+{
+  "folds": [
+    {
+      "counts": [
+        {
+          "count": 2500,
+          "generator": "ADM",
+          "label": "fake",
+          "split": "test"
+        },
+        {
+          "count": 2500,
+          "generator": "Real",
+          "label": "real",
+          "split": "test"
+        },
+        {
+          "count": 2000,
+          "generator": "BigGAN",
+          "label": "fake",
+          "split": "train"
+        },
+        {
+          "count": 2000,
+          "generator": "GLIDE",
+          "label": "fake",
+          "split": "train"
+        },
+        {
+          "count": 2000,
+          "generator": "Midjourney",
+          "label": "fake",
+          "split": "train"
+        },
+        {
+          "count": 2000,
+          "generator": "SD15",
+          "label": "fake",
+          "split": "train"
+        },
+        {
+          "count": 2000,
+          "generator": "VQDM",
+          "label": "fake",
+          "split": "train"
+        },
+        {
+          "count": 2000,
+          "generator": "Wukong",
+          "label": "fake",
+          "split": "train"
+        },
+        {
+          "count": 12000,
+          "generator": "Real",
+          "label": "real",
+          "split": "train"
+        },
+        {
+          "count": 500,
+          "generator": "BigGAN",
+          "label": "fake",
+          "split": "validation"
+        },
+        {
+          "count": 500,
+          "generator": "GLIDE",
+          "label": "fake",
+          "split": "validation"
+        },
+        {
+          "count": 500,
+          "generator": "Midjourney",
+          "label": "fake",
+          "split": "validation"
+        },
+        {
+          "count": 500,
+          "generator": "SD15",
+          "label": "fake",
+          "split": "validation"
+        },
+        {
+          "count": 500,
+          "generator": "VQDM",
+          "label": "fake",
+          "split": "validation"
+        },
+        {
+          "count": 500,
+          "generator": "Wukong",
+          "label": "fake",
+          "split": "validation"
+        },
+        {
+          "count": 3000,
+          "generator": "Real",
+          "label": "real",
+          "split": "validation"
+        }
+      ],
+      "held_out_generator": "ADM",
+      "name": "logo_adm",
+      "rows": 35000
+    },
+    {
+      "counts": [
+        {
+          "count": 2500,
+          "generator": "BigGAN",
+          "label": "fake",
+          "split": "test"
+        },
+        {
+          "count": 2500,
+          "generator": "Real",
+          "label": "real",
+          "split": "test"
+        },
+        {
+          "count": 2000,
+          "generator": "ADM",
+          "label": "fake",
+          "split": "train"
+        },
+        {
+          "count": 2000,
+          "generator": "GLIDE",
+          "label": "fake",
+          "split": "train"
+        },
+        {
+          "count": 2000,
+          "generator": "Midjourney",
+          "label": "fake",
+          "split": "train"
+        },
+        {
+          "count": 2000,
+          "generator": "SD15",
+          "label": "fake",
+          "split": "train"
+        },
+        {
+          "count": 2000,
+          "generator": "VQDM",
+          "label": "fake",
+          "split": "train"
+        },
+        {
+          "count": 2000,
+          "generator": "Wukong",
+          "label": "fake",
+          "split": "train"
+        },
+        {
+          "count": 12000,
+          "generator": "Real",
+          "label": "real",
+          "split": "train"
+        },
+        {
+          "count": 500,
+          "generator": "ADM",
+          "label": "fake",
+          "split": "validation"
+        },
+        {
+          "count": 500,
+          "generator": "GLIDE",
+          "label": "fake",
+          "split": "validation"
+        },
+        {
+          "count": 500,
+          "generator": "Midjourney",
+          "label": "fake",
+          "split": "validation"
+        },
+        {
+          "count": 500,
+          "generator": "SD15",
+          "label": "fake",
+          "split": "validation"
+        },
+        {
+          "count": 500,
+          "generator": "VQDM",
+          "label": "fake",
+          "split": "validation"
+        },
+        {
+          "count": 500,
+          "generator": "Wukong",
+          "label": "fake",
+          "split": "validation"
+        },
+        {
+          "count": 3000,
+          "generator": "Real",
+          "label": "real",
+          "split": "validation"
+        }
+      ],
+      "held_out_generator": "BigGAN",
+      "name": "logo_biggan",
+      "rows": 35000
+    },
+    {
+      "counts": [
+        {
+          "count": 2500,
+          "generator": "GLIDE",
+          "label": "fake",
+          "split": "test"
+        },
+        {
+          "count": 2500,
+          "generator": "Real",
+          "label": "real",
+          "split": "test"
+        },
+        {
+          "count": 2000,
+          "generator": "ADM",
+          "label": "fake",
+          "split": "train"
+        },
+        {
+          "count": 2000,
+          "generator": "BigGAN",
+          "label": "fake",
+          "split": "train"
+        },
+        {
+          "count": 2000,
+          "generator": "Midjourney",
+          "label": "fake",
+          "split": "train"
+        },
+        {
+          "count": 2000,
+          "generator": "SD15",
+          "label": "fake",
+          "split": "train"
+        },
+        {
+          "count": 2000,
+          "generator": "VQDM",
+          "label": "fake",
+          "split": "train"
+        },
+        {
+          "count": 2000,
+          "generator": "Wukong",
+          "label": "fake",
+          "split": "train"
+        },
+        {
+          "count": 12000,
+          "generator": "Real",
+          "label": "real",
+          "split": "train"
+        },
+        {
+          "count": 500,
+          "generator": "ADM",
+          "label": "fake",
+          "split": "validation"
+        },
+        {
+          "count": 500,
+          "generator": "BigGAN",
+          "label": "fake",
+          "split": "validation"
+        },
+        {
+          "count": 500,
+          "generator": "Midjourney",
+          "label": "fake",
+          "split": "validation"
+        },
+        {
+          "count": 500,
+          "generator": "SD15",
+          "label": "fake",
+          "split": "validation"
+        },
+        {
+          "count": 500,
+          "generator": "VQDM",
+          "label": "fake",
+          "split": "validation"
+        },
+        {
+          "count": 500,
+          "generator": "Wukong",
+          "label": "fake",
+          "split": "validation"
+        },
+        {
+          "count": 3000,
+          "generator": "Real",
+          "label": "real",
+          "split": "validation"
+        }
+      ],
+      "held_out_generator": "GLIDE",
+      "name": "logo_glide",
+      "rows": 35000
+    },
+    {
+      "counts": [
+        {
+          "count": 2500,
+          "generator": "Midjourney",
+          "label": "fake",
+          "split": "test"
+        },
+        {
+          "count": 2500,
+          "generator": "Real",
+          "label": "real",
+          "split": "test"
+        },
+        {
+          "count": 2000,
+          "generator": "ADM",
+          "label": "fake",
+          "split": "train"
+        },
+        {
+          "count": 2000,
+          "generator": "BigGAN",
+          "label": "fake",
+          "split": "train"
+        },
+        {
+          "count": 2000,
+          "generator": "GLIDE",
+          "label": "fake",
+          "split": "train"
+        },
+        {
+          "count": 2000,
+          "generator": "SD15",
+          "label": "fake",
+          "split": "train"
+        },
+        {
+          "count": 2000,
+          "generator": "VQDM",
+          "label": "fake",
+          "split": "train"
+        },
+        {
+          "count": 2000,
+          "generator": "Wukong",
+          "label": "fake",
+          "split": "train"
+        },
+        {
+          "count": 12000,
+          "generator": "Real",
+          "label": "real",
+          "split": "train"
+        },
+        {
+          "count": 500,
+          "generator": "ADM",
+          "label": "fake",
+          "split": "validation"
+        },
+        {
+          "count": 500,
+          "generator": "BigGAN",
+          "label": "fake",
+          "split": "validation"
+        },
+        {
+          "count": 500,
+          "generator": "GLIDE",
+          "label": "fake",
+          "split": "validation"
+        },
+        {
+          "count": 500,
+          "generator": "SD15",
+          "label": "fake",
+          "split": "validation"
+        },
+        {
+          "count": 500,
+          "generator": "VQDM",
+          "label": "fake",
+          "split": "validation"
+        },
+        {
+          "count": 500,
+          "generator": "Wukong",
+          "label": "fake",
+          "split": "validation"
+        },
+        {
+          "count": 3000,
+          "generator": "Real",
+          "label": "real",
+          "split": "validation"
+        }
+      ],
+      "held_out_generator": "Midjourney",
+      "name": "logo_midjourney",
+      "rows": 35000
+    },
+    {
+      "counts": [
+        {
+          "count": 2500,
+          "generator": "SD15",
+          "label": "fake",
+          "split": "test"
+        },
+        {
+          "count": 2500,
+          "generator": "Real",
+          "label": "real",
+          "split": "test"
+        },
+        {
+          "count": 2000,
+          "generator": "ADM",
+          "label": "fake",
+          "split": "train"
+        },
+        {
+          "count": 2000,
+          "generator": "BigGAN",
+          "label": "fake",
+          "split": "train"
+        },
+        {
+          "count": 2000,
+          "generator": "GLIDE",
+          "label": "fake",
+          "split": "train"
+        },
+        {
+          "count": 2000,
+          "generator": "Midjourney",
+          "label": "fake",
+          "split": "train"
+        },
+        {
+          "count": 2000,
+          "generator": "VQDM",
+          "label": "fake",
+          "split": "train"
+        },
+        {
+          "count": 2000,
+          "generator": "Wukong",
+          "label": "fake",
+          "split": "train"
+        },
+        {
+          "count": 12000,
+          "generator": "Real",
+          "label": "real",
+          "split": "train"
+        },
+        {
+          "count": 500,
+          "generator": "ADM",
+          "label": "fake",
+          "split": "validation"
+        },
+        {
+          "count": 500,
+          "generator": "BigGAN",
+          "label": "fake",
+          "split": "validation"
+        },
+        {
+          "count": 500,
+          "generator": "GLIDE",
+          "label": "fake",
+          "split": "validation"
+        },
+        {
+          "count": 500,
+          "generator": "Midjourney",
+          "label": "fake",
+          "split": "validation"
+        },
+        {
+          "count": 500,
+          "generator": "VQDM",
+          "label": "fake",
+          "split": "validation"
+        },
+        {
+          "count": 500,
+          "generator": "Wukong",
+          "label": "fake",
+          "split": "validation"
+        },
+        {
+          "count": 3000,
+          "generator": "Real",
+          "label": "real",
+          "split": "validation"
+        }
+      ],
+      "held_out_generator": "SD15",
+      "name": "logo_sd15",
+      "rows": 35000
+    },
+    {
+      "counts": [
+        {
+          "count": 2500,
+          "generator": "VQDM",
+          "label": "fake",
+          "split": "test"
+        },
+        {
+          "count": 2500,
+          "generator": "Real",
+          "label": "real",
+          "split": "test"
+        },
+        {
+          "count": 2000,
+          "generator": "ADM",
+          "label": "fake",
+          "split": "train"
+        },
+        {
+          "count": 2000,
+          "generator": "BigGAN",
+          "label": "fake",
+          "split": "train"
+        },
+        {
+          "count": 2000,
+          "generator": "GLIDE",
+          "label": "fake",
+          "split": "train"
+        },
+        {
+          "count": 2000,
+          "generator": "Midjourney",
+          "label": "fake",
+          "split": "train"
+        },
+        {
+          "count": 2000,
+          "generator": "SD15",
+          "label": "fake",
+          "split": "train"
+        },
+        {
+          "count": 2000,
+          "generator": "Wukong",
+          "label": "fake",
+          "split": "train"
+        },
+        {
+          "count": 12000,
+          "generator": "Real",
+          "label": "real",
+          "split": "train"
+        },
+        {
+          "count": 500,
+          "generator": "ADM",
+          "label": "fake",
+          "split": "validation"
+        },
+        {
+          "count": 500,
+          "generator": "BigGAN",
+          "label": "fake",
+          "split": "validation"
+        },
+        {
+          "count": 500,
+          "generator": "GLIDE",
+          "label": "fake",
+          "split": "validation"
+        },
+        {
+          "count": 500,
+          "generator": "Midjourney",
+          "label": "fake",
+          "split": "validation"
+        },
+        {
+          "count": 500,
+          "generator": "SD15",
+          "label": "fake",
+          "split": "validation"
+        },
+        {
+          "count": 500,
+          "generator": "Wukong",
+          "label": "fake",
+          "split": "validation"
+        },
+        {
+          "count": 3000,
+          "generator": "Real",
+          "label": "real",
+          "split": "validation"
+        }
+      ],
+      "held_out_generator": "VQDM",
+      "name": "logo_vqdm",
+      "rows": 35000
+    },
+    {
+      "counts": [
+        {
+          "count": 2500,
+          "generator": "Wukong",
+          "label": "fake",
+          "split": "test"
+        },
+        {
+          "count": 2500,
+          "generator": "Real",
+          "label": "real",
+          "split": "test"
+        },
+        {
+          "count": 2000,
+          "generator": "ADM",
+          "label": "fake",
+          "split": "train"
+        },
+        {
+          "count": 2000,
+          "generator": "BigGAN",
+          "label": "fake",
+          "split": "train"
+        },
+        {
+          "count": 2000,
+          "generator": "GLIDE",
+          "label": "fake",
+          "split": "train"
+        },
+        {
+          "count": 2000,
+          "generator": "Midjourney",
+          "label": "fake",
+          "split": "train"
+        },
+        {
+          "count": 2000,
+          "generator": "SD15",
+          "label": "fake",
+          "split": "train"
+        },
+        {
+          "count": 2000,
+          "generator": "VQDM",
+          "label": "fake",
+          "split": "train"
+        },
+        {
+          "count": 12000,
+          "generator": "Real",
+          "label": "real",
+          "split": "train"
+        },
+        {
+          "count": 500,
+          "generator": "ADM",
+          "label": "fake",
+          "split": "validation"
+        },
+        {
+          "count": 500,
+          "generator": "BigGAN",
+          "label": "fake",
+          "split": "validation"
+        },
+        {
+          "count": 500,
+          "generator": "GLIDE",
+          "label": "fake",
+          "split": "validation"
+        },
+        {
+          "count": 500,
+          "generator": "Midjourney",
+          "label": "fake",
+          "split": "validation"
+        },
+        {
+          "count": 500,
+          "generator": "SD15",
+          "label": "fake",
+          "split": "validation"
+        },
+        {
+          "count": 500,
+          "generator": "VQDM",
+          "label": "fake",
+          "split": "validation"
+        },
+        {
+          "count": 3000,
+          "generator": "Real",
+          "label": "real",
+          "split": "validation"
+        }
+      ],
+      "held_out_generator": "Wukong",
+      "name": "logo_wukong",
+      "rows": 35000
+    },
+    {
+      "counts": [
+        {
+          "count": 2500,
+          "generator": "ADM",
+          "label": "fake",
+          "split": "test"
+        },
+        {
+          "count": 2500,
+          "generator": "GLIDE",
+          "label": "fake",
+          "split": "test"
+        },
+        {
+          "count": 2500,
+          "generator": "SD15",
+          "label": "fake",
+          "split": "test"
+        },
+        {
+          "count": 2500,
+          "generator": "VQDM",
+          "label": "fake",
+          "split": "test"
+        },
+        {
+          "count": 2500,
+          "generator": "Wukong",
+          "label": "fake",
+          "split": "test"
+        },
+        {
+          "count": 12500,
+          "generator": "Real",
+          "label": "real",
+          "split": "test"
+        },
+        {
+          "count": 2000,
+          "generator": "BigGAN",
+          "label": "fake",
+          "split": "train"
+        },
+        {
+          "count": 2000,
+          "generator": "Real",
+          "label": "real",
+          "split": "train"
+        },
+        {
+          "count": 500,
+          "generator": "BigGAN",
+          "label": "fake",
+          "split": "validation"
+        },
+        {
+          "count": 500,
+          "generator": "Real",
+          "label": "real",
+          "split": "validation"
+        }
+      ],
+      "held_out_generator": null,
+      "name": "biggan_to_diffusion_strict",
+      "rows": 30000
+    },
+    {
+      "counts": [
+        {
+          "count": 2500,
+          "generator": "Midjourney",
+          "label": "fake",
+          "split": "test"
+        },
+        {
+          "count": 2500,
+          "generator": "Real",
+          "label": "real",
+          "split": "test"
+        }
+      ],
+      "held_out_generator": null,
+      "name": "biggan_to_midjourney_separate_test",
+      "rows": 5000
+    }
+  ],
+  "seed": 4001
+}
