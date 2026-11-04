@@ -1,0 +1,479 @@
+[
+  {
+    "accuracy": 0.978,
+    "confusion_matrix": [
+      [
+        481,
+        19
+      ],
+      [
+        3,
+        497
+      ]
+    ],
+    "f1": 0.9783464566929134,
+    "precision": 0.9631782945736435,
+    "recall": 0.994,
+    "seed": 4001,
+    "split": "validation",
+    "variant": "jpeg_common"
+  },
+  {
+    "accuracy": 0.55176,
+    "confusion_matrix": [
+      [
+        12125,
+        375
+      ],
+      [
+        10831,
+        1669
+      ]
+    ],
+    "f1": 0.2295104510451045,
+    "precision": 0.8165362035225049,
+    "recall": 0.13352,
+    "seed": 4001,
+    "split": "test",
+    "variant": "jpeg_common"
+  },
+  {
+    "accuracy": 0.555,
+    "confusion_matrix": [
+      [
+        2434,
+        66
+      ],
+      [
+        2159,
+        341
+      ]
+    ],
+    "f1": 0.23460612315101478,
+    "generator": "ADM",
+    "precision": 0.8378378378378378,
+    "recall": 0.1364,
+    "seed": 4001,
+    "split": "test",
+    "variant": "jpeg_common"
+  },
+  {
+    "accuracy": 0.6784,
+    "confusion_matrix": [
+      [
+        2422,
+        78
+      ],
+      [
+        1530,
+        970
+      ]
+    ],
+    "f1": 0.5467869222096956,
+    "generator": "GLIDE",
+    "precision": 0.9255725190839694,
+    "recall": 0.388,
+    "seed": 4001,
+    "split": "test",
+    "variant": "jpeg_common"
+  },
+  {
+    "accuracy": 0.4838,
+    "confusion_matrix": [
+      [
+        2418,
+        82
+      ],
+      [
+        2499,
+        1
+      ]
+    ],
+    "f1": 0.0007742934572202865,
+    "generator": "SD15",
+    "precision": 0.012048192771084338,
+    "recall": 0.0004,
+    "seed": 4001,
+    "split": "test",
+    "variant": "jpeg_common"
+  },
+  {
+    "accuracy": 0.557,
+    "confusion_matrix": [
+      [
+        2432,
+        68
+      ],
+      [
+        2147,
+        353
+      ]
+    ],
+    "f1": 0.24169804861348854,
+    "generator": "VQDM",
+    "precision": 0.838479809976247,
+    "recall": 0.1412,
+    "seed": 4001,
+    "split": "test",
+    "variant": "jpeg_common"
+  },
+  {
+    "accuracy": 0.4846,
+    "confusion_matrix": [
+      [
+        2419,
+        81
+      ],
+      [
+        2496,
+        4
+      ]
+    ],
+    "f1": 0.003094777562862669,
+    "generator": "Wukong",
+    "precision": 0.047058823529411764,
+    "recall": 0.0016,
+    "seed": 4001,
+    "split": "test",
+    "variant": "jpeg_common"
+  },
+  {
+    "accuracy": 0.491,
+    "confusion_matrix": [
+      [
+        2437,
+        63
+      ],
+      [
+        2482,
+        18
+      ]
+    ],
+    "f1": 0.013948082138705927,
+    "generator": "Midjourney",
+    "manifest": "biggan_to_midjourney_separate_test.csv",
+    "precision": 0.2222222222222222,
+    "recall": 0.0072,
+    "seed": 4001,
+    "split": "separate_test",
+    "variant": "jpeg_common"
+  },
+  {
+    "accuracy": 0.978,
+    "confusion_matrix": [
+      [
+        481,
+        19
+      ],
+      [
+        3,
+        497
+      ]
+    ],
+    "f1": 0.9783464566929134,
+    "precision": 0.9631782945736435,
+    "recall": 0.994,
+    "seed": 4002,
+    "split": "validation",
+    "variant": "jpeg_common"
+  },
+  {
+    "accuracy": 0.55176,
+    "confusion_matrix": [
+      [
+        12125,
+        375
+      ],
+      [
+        10831,
+        1669
+      ]
+    ],
+    "f1": 0.2295104510451045,
+    "precision": 0.8165362035225049,
+    "recall": 0.13352,
+    "seed": 4002,
+    "split": "test",
+    "variant": "jpeg_common"
+  },
+  {
+    "accuracy": 0.555,
+    "confusion_matrix": [
+      [
+        2434,
+        66
+      ],
+      [
+        2159,
+        341
+      ]
+    ],
+    "f1": 0.23460612315101478,
+    "generator": "ADM",
+    "precision": 0.8378378378378378,
+    "recall": 0.1364,
+    "seed": 4002,
+    "split": "test",
+    "variant": "jpeg_common"
+  },
+  {
+    "accuracy": 0.6784,
+    "confusion_matrix": [
+      [
+        2422,
+        78
+      ],
+      [
+        1530,
+        970
+      ]
+    ],
+    "f1": 0.5467869222096956,
+    "generator": "GLIDE",
+    "precision": 0.9255725190839694,
+    "recall": 0.388,
+    "seed": 4002,
+    "split": "test",
+    "variant": "jpeg_common"
+  },
+  {
+    "accuracy": 0.4838,
+    "confusion_matrix": [
+      [
+        2418,
+        82
+      ],
+      [
+        2499,
+        1
+      ]
+    ],
+    "f1": 0.0007742934572202865,
+    "generator": "SD15",
+    "precision": 0.012048192771084338,
+    "recall": 0.0004,
+    "seed": 4002,
+    "split": "test",
+    "variant": "jpeg_common"
+  },
+  {
+    "accuracy": 0.557,
+    "confusion_matrix": [
+      [
+        2432,
+        68
+      ],
+      [
+        2147,
+        353
+      ]
+    ],
+    "f1": 0.24169804861348854,
+    "generator": "VQDM",
+    "precision": 0.838479809976247,
+    "recall": 0.1412,
+    "seed": 4002,
+    "split": "test",
+    "variant": "jpeg_common"
+  },
+  {
+    "accuracy": 0.4846,
+    "confusion_matrix": [
+      [
+        2419,
+        81
+      ],
+      [
+        2496,
+        4
+      ]
+    ],
+    "f1": 0.003094777562862669,
+    "generator": "Wukong",
+    "precision": 0.047058823529411764,
+    "recall": 0.0016,
+    "seed": 4002,
+    "split": "test",
+    "variant": "jpeg_common"
+  },
+  {
+    "accuracy": 0.491,
+    "confusion_matrix": [
+      [
+        2437,
+        63
+      ],
+      [
+        2482,
+        18
+      ]
+    ],
+    "f1": 0.013948082138705927,
+    "generator": "Midjourney",
+    "manifest": "biggan_to_midjourney_separate_test.csv",
+    "precision": 0.2222222222222222,
+    "recall": 0.0072,
+    "seed": 4002,
+    "split": "separate_test",
+    "variant": "jpeg_common"
+  },
+  {
+    "accuracy": 0.978,
+    "confusion_matrix": [
+      [
+        481,
+        19
+      ],
+      [
+        3,
+        497
+      ]
+    ],
+    "f1": 0.9783464566929134,
+    "precision": 0.9631782945736435,
+    "recall": 0.994,
+    "seed": 4003,
+    "split": "validation",
+    "variant": "jpeg_common"
+  },
+  {
+    "accuracy": 0.55176,
+    "confusion_matrix": [
+      [
+        12125,
+        375
+      ],
+      [
+        10831,
+        1669
+      ]
+    ],
+    "f1": 0.2295104510451045,
+    "precision": 0.8165362035225049,
+    "recall": 0.13352,
+    "seed": 4003,
+    "split": "test",
+    "variant": "jpeg_common"
+  },
+  {
+    "accuracy": 0.555,
+    "confusion_matrix": [
+      [
+        2434,
+        66
+      ],
+      [
+        2159,
+        341
+      ]
+    ],
+    "f1": 0.23460612315101478,
+    "generator": "ADM",
+    "precision": 0.8378378378378378,
+    "recall": 0.1364,
+    "seed": 4003,
+    "split": "test",
+    "variant": "jpeg_common"
+  },
+  {
+    "accuracy": 0.6784,
+    "confusion_matrix": [
+      [
+        2422,
+        78
+      ],
+      [
+        1530,
+        970
+      ]
+    ],
+    "f1": 0.5467869222096956,
+    "generator": "GLIDE",
+    "precision": 0.9255725190839694,
+    "recall": 0.388,
+    "seed": 4003,
+    "split": "test",
+    "variant": "jpeg_common"
+  },
+  {
+    "accuracy": 0.4838,
+    "confusion_matrix": [
+      [
+        2418,
+        82
+      ],
+      [
+        2499,
+        1
+      ]
+    ],
+    "f1": 0.0007742934572202865,
+    "generator": "SD15",
+    "precision": 0.012048192771084338,
+    "recall": 0.0004,
+    "seed": 4003,
+    "split": "test",
+    "variant": "jpeg_common"
+  },
+  {
+    "accuracy": 0.557,
+    "confusion_matrix": [
+      [
+        2432,
+        68
+      ],
+      [
+        2147,
+        353
+      ]
+    ],
+    "f1": 0.24169804861348854,
+    "generator": "VQDM",
+    "precision": 0.838479809976247,
+    "recall": 0.1412,
+    "seed": 4003,
+    "split": "test",
+    "variant": "jpeg_common"
+  },
+  {
+    "accuracy": 0.4846,
+    "confusion_matrix": [
+      [
+        2419,
+        81
+      ],
+      [
+        2496,
+        4
+      ]
+    ],
+    "f1": 0.003094777562862669,
+    "generator": "Wukong",
+    "precision": 0.047058823529411764,
+    "recall": 0.0016,
+    "seed": 4003,
+    "split": "test",
+    "variant": "jpeg_common"
+  },
+  {
+    "accuracy": 0.491,
+    "confusion_matrix": [
+      [
+        2437,
+        63
+      ],
+      [
+        2482,
+        18
+      ]
+    ],
+    "f1": 0.013948082138705927,
+    "generator": "Midjourney",
+    "manifest": "biggan_to_midjourney_separate_test.csv",
+    "precision": 0.2222222222222222,
+    "recall": 0.0072,
+    "seed": 4003,
+    "split": "separate_test",
+    "variant": "jpeg_common"
+  }
+]

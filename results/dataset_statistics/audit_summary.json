@@ -1,0 +1,777 @@
+{
+  "corrupt_or_unreadable": 0,
+  "counts": [
+    {
+      "count": 2000,
+      "generator": "ADM",
+      "label": "fake",
+      "source_split": "train"
+    },
+    {
+      "count": 2000,
+      "generator": "BigGAN",
+      "label": "fake",
+      "source_split": "train"
+    },
+    {
+      "count": 2000,
+      "generator": "GLIDE",
+      "label": "fake",
+      "source_split": "train"
+    },
+    {
+      "count": 2000,
+      "generator": "Midjourney",
+      "label": "fake",
+      "source_split": "train"
+    },
+    {
+      "count": 2000,
+      "generator": "SD15",
+      "label": "fake",
+      "source_split": "train"
+    },
+    {
+      "count": 2000,
+      "generator": "VQDM",
+      "label": "fake",
+      "source_split": "train"
+    },
+    {
+      "count": 2000,
+      "generator": "Wukong",
+      "label": "fake",
+      "source_split": "train"
+    },
+    {
+      "count": 14000,
+      "generator": "Real",
+      "label": "real",
+      "source_split": "train"
+    },
+    {
+      "count": 500,
+      "generator": "ADM",
+      "label": "fake",
+      "source_split": "validation"
+    },
+    {
+      "count": 500,
+      "generator": "BigGAN",
+      "label": "fake",
+      "source_split": "validation"
+    },
+    {
+      "count": 500,
+      "generator": "GLIDE",
+      "label": "fake",
+      "source_split": "validation"
+    },
+    {
+      "count": 500,
+      "generator": "Midjourney",
+      "label": "fake",
+      "source_split": "validation"
+    },
+    {
+      "count": 500,
+      "generator": "SD15",
+      "label": "fake",
+      "source_split": "validation"
+    },
+    {
+      "count": 500,
+      "generator": "VQDM",
+      "label": "fake",
+      "source_split": "validation"
+    },
+    {
+      "count": 500,
+      "generator": "Wukong",
+      "label": "fake",
+      "source_split": "validation"
+    },
+    {
+      "count": 3500,
+      "generator": "Real",
+      "label": "real",
+      "source_split": "validation"
+    }
+  ],
+  "created_at_utc": "2026-11-03T15:58:22.323059+00:00",
+  "cross_generator_duplicate_groups": 4,
+  "cross_label_duplicate_groups": 2,
+  "cross_split_duplicate_groups": 3,
+  "dataset": "tiny_genimage",
+  "duplicate_groups": 7,
+  "exact_duplicate_groups": 2,
+  "format_counts": [
+    {
+      "count": 2500,
+      "format": "PNG",
+      "generator": "ADM",
+      "label": "fake"
+    },
+    {
+      "count": 2500,
+      "format": "PNG",
+      "generator": "BigGAN",
+      "label": "fake"
+    },
+    {
+      "count": 2500,
+      "format": "PNG",
+      "generator": "GLIDE",
+      "label": "fake"
+    },
+    {
+      "count": 2500,
+      "format": "PNG",
+      "generator": "Midjourney",
+      "label": "fake"
+    },
+    {
+      "count": 2500,
+      "format": "PNG",
+      "generator": "SD15",
+      "label": "fake"
+    },
+    {
+      "count": 2500,
+      "format": "PNG",
+      "generator": "VQDM",
+      "label": "fake"
+    },
+    {
+      "count": 2500,
+      "format": "PNG",
+      "generator": "Wukong",
+      "label": "fake"
+    },
+    {
+      "count": 17500,
+      "format": "JPEG",
+      "generator": "Real",
+      "label": "real"
+    }
+  ],
+  "known_limitations": [
+    "Tiny-GenImage does not retain an explicit fake-to-real source pairing.",
+    "ImageNet class identifiers are names for real images but numeric indices for generated images; no local mapping joins them.",
+    "Perceptual-hash groups are candidates and may contain false positives; review cross-split groups manually.",
+    "Midjourney is treated as proprietary/unknown architecture, not as confirmed diffusion.",
+    "SD14 exists in the label vocabulary but has zero rows."
+  ],
+  "license": "CC-BY-NC-SA-4.0",
+  "parquet_files": 18,
+  "perceptual_candidate_groups": 5,
+  "repo_id": "TheKernel01/Tiny-GenImage",
+  "revision": "89c4fe9efd0ebc7ce5c7641ef57d578ccd639c69",
+  "rows_audited": 35000,
+  "top_dimensions": [
+    {
+      "count": 4360,
+      "generator": "Real",
+      "height": 375,
+      "width": 500
+    },
+    {
+      "count": 2500,
+      "generator": "ADM",
+      "height": 256,
+      "width": 256
+    },
+    {
+      "count": 2500,
+      "generator": "BigGAN",
+      "height": 128,
+      "width": 128
+    },
+    {
+      "count": 2500,
+      "generator": "GLIDE",
+      "height": 256,
+      "width": 256
+    },
+    {
+      "count": 2500,
+      "generator": "SD15",
+      "height": 512,
+      "width": 512
+    },
+    {
+      "count": 2500,
+      "generator": "VQDM",
+      "height": 256,
+      "width": 256
+    },
+    {
+      "count": 2500,
+      "generator": "Wukong",
+      "height": 512,
+      "width": 512
+    },
+    {
+      "count": 2499,
+      "generator": "Midjourney",
+      "height": 1024,
+      "width": 1024
+    },
+    {
+      "count": 1502,
+      "generator": "Real",
+      "height": 333,
+      "width": 500
+    },
+    {
+      "count": 1347,
+      "generator": "Real",
+      "height": 500,
+      "width": 375
+    },
+    {
+      "count": 520,
+      "generator": "Real",
+      "height": 500,
+      "width": 333
+    },
+    {
+      "count": 415,
+      "generator": "Real",
+      "height": 334,
+      "width": 500
+    },
+    {
+      "count": 259,
+      "generator": "Real",
+      "height": 500,
+      "width": 500
+    },
+    {
+      "count": 228,
+      "generator": "Real",
+      "height": 332,
+      "width": 500
+    },
+    {
+      "count": 139,
+      "generator": "Real",
+      "height": 480,
+      "width": 640
+    },
+    {
+      "count": 130,
+      "generator": "Real",
+      "height": 335,
+      "width": 500
+    },
+    {
+      "count": 119,
+      "generator": "Real",
+      "height": 400,
+      "width": 500
+    },
+    {
+      "count": 116,
+      "generator": "Real",
+      "height": 500,
+      "width": 334
+    },
+    {
+      "count": 99,
+      "generator": "Real",
+      "height": 374,
+      "width": 500
+    },
+    {
+      "count": 77,
+      "generator": "Real",
+      "height": 600,
+      "width": 800
+    },
+    {
+      "count": 76,
+      "generator": "Real",
+      "height": 357,
+      "width": 500
+    },
+    {
+      "count": 60,
+      "generator": "Real",
+      "height": 300,
+      "width": 400
+    },
+    {
+      "count": 58,
+      "generator": "Real",
+      "height": 376,
+      "width": 500
+    },
+    {
+      "count": 56,
+      "generator": "Real",
+      "height": 500,
+      "width": 400
+    },
+    {
+      "count": 56,
+      "generator": "Real",
+      "height": 450,
+      "width": 600
+    },
+    {
+      "count": 56,
+      "generator": "Real",
+      "height": 500,
+      "width": 332
+    },
+    {
+      "count": 48,
+      "generator": "Real",
+      "height": 281,
+      "width": 500
+    },
+    {
+      "count": 46,
+      "generator": "Real",
+      "height": 768,
+      "width": 1024
+    },
+    {
+      "count": 45,
+      "generator": "Real",
+      "height": 336,
+      "width": 500
+    },
+    {
+      "count": 41,
+      "generator": "Real",
+      "height": 338,
+      "width": 500
+    },
+    {
+      "count": 38,
+      "generator": "Real",
+      "height": 500,
+      "width": 335
+    },
+    {
+      "count": 37,
+      "generator": "Real",
+      "height": 400,
+      "width": 600
+    },
+    {
+      "count": 35,
+      "generator": "Real",
+      "height": 377,
+      "width": 500
+    },
+    {
+      "count": 34,
+      "generator": "Real",
+      "height": 500,
+      "width": 357
+    },
+    {
+      "count": 33,
+      "generator": "Real",
+      "height": 360,
+      "width": 480
+    },
+    {
+      "count": 32,
+      "generator": "Real",
+      "height": 340,
+      "width": 500
+    },
+    {
+      "count": 31,
+      "generator": "Real",
+      "height": 180,
+      "width": 240
+    },
+    {
+      "count": 30,
+      "generator": "Real",
+      "height": 354,
+      "width": 500
+    },
+    {
+      "count": 29,
+      "generator": "Real",
+      "height": 331,
+      "width": 500
+    },
+    {
+      "count": 29,
+      "generator": "Real",
+      "height": 500,
+      "width": 374
+    },
+    {
+      "count": 29,
+      "generator": "Real",
+      "height": 339,
+      "width": 500
+    },
+    {
+      "count": 28,
+      "generator": "Real",
+      "height": 240,
+      "width": 320
+    },
+    {
+      "count": 28,
+      "generator": "Real",
+      "height": 300,
+      "width": 300
+    },
+    {
+      "count": 28,
+      "generator": "Real",
+      "height": 500,
+      "width": 376
+    },
+    {
+      "count": 27,
+      "generator": "Real",
+      "height": 640,
+      "width": 480
+    },
+    {
+      "count": 26,
+      "generator": "Real",
+      "height": 200,
+      "width": 200
+    },
+    {
+      "count": 25,
+      "generator": "Real",
+      "height": 343,
+      "width": 500
+    },
+    {
+      "count": 25,
+      "generator": "Real",
+      "height": 341,
+      "width": 500
+    },
+    {
+      "count": 24,
+      "generator": "Real",
+      "height": 386,
+      "width": 500
+    },
+    {
+      "count": 24,
+      "generator": "Real",
+      "height": 351,
+      "width": 500
+    },
+    {
+      "count": 24,
+      "generator": "Real",
+      "height": 344,
+      "width": 500
+    },
+    {
+      "count": 23,
+      "generator": "Real",
+      "height": 352,
+      "width": 500
+    },
+    {
+      "count": 23,
+      "generator": "Real",
+      "height": 358,
+      "width": 500
+    },
+    {
+      "count": 23,
+      "generator": "Real",
+      "height": 400,
+      "width": 400
+    },
+    {
+      "count": 23,
+      "generator": "Real",
+      "height": 400,
+      "width": 300
+    },
+    {
+      "count": 22,
+      "generator": "Real",
+      "height": 347,
+      "width": 500
+    },
+    {
+      "count": 22,
+      "generator": "Real",
+      "height": 349,
+      "width": 500
+    },
+    {
+      "count": 21,
+      "generator": "Real",
+      "height": 353,
+      "width": 500
+    },
+    {
+      "count": 21,
+      "generator": "Real",
+      "height": 1200,
+      "width": 1600
+    },
+    {
+      "count": 21,
+      "generator": "Real",
+      "height": 337,
+      "width": 500
+    },
+    {
+      "count": 20,
+      "generator": "Real",
+      "height": 359,
+      "width": 500
+    },
+    {
+      "count": 20,
+      "generator": "Real",
+      "height": 369,
+      "width": 500
+    },
+    {
+      "count": 20,
+      "generator": "Real",
+      "height": 405,
+      "width": 500
+    },
+    {
+      "count": 20,
+      "generator": "Real",
+      "height": 368,
+      "width": 500
+    },
+    {
+      "count": 20,
+      "generator": "Real",
+      "height": 346,
+      "width": 500
+    },
+    {
+      "count": 20,
+      "generator": "Real",
+      "height": 396,
+      "width": 500
+    },
+    {
+      "count": 19,
+      "generator": "Real",
+      "height": 225,
+      "width": 300
+    },
+    {
+      "count": 19,
+      "generator": "Real",
+      "height": 384,
+      "width": 500
+    },
+    {
+      "count": 19,
+      "generator": "Real",
+      "height": 800,
+      "width": 600
+    },
+    {
+      "count": 19,
+      "generator": "Real",
+      "height": 373,
+      "width": 500
+    },
+    {
+      "count": 19,
+      "generator": "Real",
+      "height": 253,
+      "width": 380
+    },
+    {
+      "count": 19,
+      "generator": "Real",
+      "height": 401,
+      "width": 500
+    },
+    {
+      "count": 19,
+      "generator": "Real",
+      "height": 379,
+      "width": 500
+    },
+    {
+      "count": 18,
+      "generator": "Real",
+      "height": 362,
+      "width": 500
+    },
+    {
+      "count": 18,
+      "generator": "Real",
+      "height": 403,
+      "width": 500
+    },
+    {
+      "count": 18,
+      "generator": "Real",
+      "height": 250,
+      "width": 250
+    },
+    {
+      "count": 18,
+      "generator": "Real",
+      "height": 280,
+      "width": 280
+    },
+    {
+      "count": 17,
+      "generator": "Real",
+      "height": 361,
+      "width": 500
+    },
+    {
+      "count": 17,
+      "generator": "Real",
+      "height": 356,
+      "width": 500
+    },
+    {
+      "count": 17,
+      "generator": "Real",
+      "height": 378,
+      "width": 500
+    },
+    {
+      "count": 17,
+      "generator": "Real",
+      "height": 417,
+      "width": 500
+    },
+    {
+      "count": 17,
+      "generator": "Real",
+      "height": 342,
+      "width": 500
+    },
+    {
+      "count": 17,
+      "generator": "Real",
+      "height": 399,
+      "width": 500
+    },
+    {
+      "count": 16,
+      "generator": "Real",
+      "height": 360,
+      "width": 500
+    },
+    {
+      "count": 16,
+      "generator": "Real",
+      "height": 393,
+      "width": 500
+    },
+    {
+      "count": 16,
+      "generator": "Real",
+      "height": 389,
+      "width": 500
+    },
+    {
+      "count": 16,
+      "generator": "Real",
+      "height": 500,
+      "width": 340
+    },
+    {
+      "count": 16,
+      "generator": "Real",
+      "height": 533,
+      "width": 800
+    },
+    {
+      "count": 16,
+      "generator": "Real",
+      "height": 150,
+      "width": 200
+    },
+    {
+      "count": 16,
+      "generator": "Real",
+      "height": 500,
+      "width": 331
+    },
+    {
+      "count": 15,
+      "generator": "Real",
+      "height": 387,
+      "width": 500
+    },
+    {
+      "count": 15,
+      "generator": "Real",
+      "height": 350,
+      "width": 500
+    },
+    {
+      "count": 15,
+      "generator": "Real",
+      "height": 381,
+      "width": 500
+    },
+    {
+      "count": 15,
+      "generator": "Real",
+      "height": 406,
+      "width": 500
+    },
+    {
+      "count": 15,
+      "generator": "Real",
+      "height": 500,
+      "width": 380
+    },
+    {
+      "count": 14,
+      "generator": "Real",
+      "height": 313,
+      "width": 500
+    },
+    {
+      "count": 14,
+      "generator": "Real",
+      "height": 382,
+      "width": 500
+    },
+    {
+      "count": 14,
+      "generator": "Real",
+      "height": 160,
+      "width": 240
+    },
+    {
+      "count": 14,
+      "generator": "Real",
+      "height": 367,
+      "width": 500
+    },
+    {
+      "count": 14,
+      "generator": "Real",
+      "height": 394,
+      "width": 500
+    }
+  ],
+  "unique_encoded_hashes": 34998,
+  "unique_original_filenames": 35000,
+  "unique_pixel_hashes": 34998,
+  "valid_images": 35000
+}

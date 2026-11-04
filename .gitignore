@@ -1,0 +1,65 @@
+# Python environments and caches
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials*
+secrets*
+
+# Raw datasets and generated images
+data/raw/
+data/processed/
+data/models/
+data/features/
+data/manifests/*.csv
+*.parquet
+*.arrow
+*.zip
+*.tar
+*.tar.gz
+*.7z
+
+# Embeddings, checkpoints, and model weights
+*.npy
+*.npz
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.onnx
+*.bin
+
+# Hugging Face and model caches
+.cache/
+huggingface/
+hub/
+models--*/
+
+# Runtime artifacts
+*.log
+logs/
+tmp/
+temp/
+*.tmp
+*.bak
+*.swp
+
+# IDE and operating-system files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+desktop.ini
