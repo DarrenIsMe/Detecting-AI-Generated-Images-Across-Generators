@@ -33,6 +33,41 @@ Each condition contains a single configuration directory under:
 
 Within it, use `feature_index.csv`, `extraction_settings.json`, and the 18 per-shard `.npz` archives. The extractor binds caches to exact input bytes, preprocessing settings, checkpoint hashes, and feature-file hashes; it recomputes an invalid or partial shard.
 
+## Downloading Precomputed CLIP Features
+
+Two supported routes are available:
+
+### Option A — GitHub Release
+
+Download a ZIP from [Person 1 — CLIP Features v1](https://github.com/DarrenIsMe/Detecting-AI-Generated-Images-Across-Generators/releases/tag/person1-features-v1) and extract it into the repository root:
+
+```powershell
+Invoke-WebRequest `
+  https://github.com/DarrenIsMe/Detecting-AI-Generated-Images-Across-Generators/releases/download/person1-features-v1/clip_features_standardized.zip `
+  -OutFile clip_features_standardized.zip
+Expand-Archive .\clip_features_standardized.zip -DestinationPath . -Force
+```
+
+Person 2 can immediately join the extracted `feature_index.csv` to the committed split CSVs using `image_id` and train the linear classifier. No images are required for this feature-based workflow.
+
+### Option B — reproduce locally
+
+Download the pinned [Tiny-GenImage dataset](https://huggingface.co/datasets/TheKernel01/Tiny-GenImage), then run the audit, preprocessing, and extraction scripts. The pinned revision is `89c4fe9efd0ebc7ce5c7641ef57d578ccd639c69`.
+
+```powershell
+python -m pip install --upgrade huggingface_hub
+hf download TheKernel01/Tiny-GenImage `
+  --repo-type dataset `
+  --revision 89c4fe9efd0ebc7ce5c7641ef57d578ccd639c69 `
+  --local-dir data\raw\tiny_genimage_hf
+python scripts\inspect_datasets.py
+python scripts\make_splits.py
+python scripts\prepare_images.py standardized
+python scripts\extract_clip.py standardized
+```
+
+Person 2 needs original or reproducibly processed images for the CNN baseline. Person 3 needs image data to generate new JPEG/resizing robustness conditions. Images are not included in the GitHub Release. Run `inspect_datasets.py` to regenerate `data/manifests/master_manifest.csv` whenever source Parquet rows or filenames are required.
+
 ## Reproduction sequence
 
 From PowerShell in the project root:

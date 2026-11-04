@@ -123,6 +123,72 @@ python scripts\extract_clip.py jpeg_common
 
 The extractor uses CUDA when available, falls back to CPU, and halves the batch size automatically after a CUDA out-of-memory error. It stores one atomic cache per source shard. Cache reuse verifies ordered IDs, dimensions, finite values, exact feature-file bytes, exact processed-image bytes, preprocessing settings, the OpenCLIP transform, and checkpoint hashes. A committed attestation allows only the previously verified baseline caches to receive upgraded metadata without re-extraction; any mismatch is recomputed.
 
+## Downloading Precomputed CLIP Features
+
+The [Person 1 — CLIP Features v1 release](https://github.com/DarrenIsMe/Detecting-AI-Generated-Images-Across-Generators/releases/tag/person1-features-v1) provides one ZIP per preprocessing condition. The archives contain NPZ feature arrays, `feature_index.csv`, sanitized extraction metadata, and attribution/licence notices. They do not contain source or processed images.
+
+### Option A — use the release assets
+
+Download the required condition and extract it into the repository root. For example, Person 2 can use the standardized features without repeating preprocessing or CLIP inference:
+
+```powershell
+Invoke-WebRequest `
+  https://github.com/DarrenIsMe/Detecting-AI-Generated-Images-Across-Generators/releases/download/person1-features-v1/clip_features_standardized.zip `
+  -OutFile clip_features_standardized.zip
+Expand-Archive .\clip_features_standardized.zip -DestinationPath . -Force
+```
+
+Extraction creates:
+
+```text
+data/features/standardized/ViT-B-32-quickgelu-openai-e8d939fb5c8e47f6/
+```
+
+Available assets and SHA-256 checksums:
+
+| Condition | Asset | SHA-256 |
+|---|---|---|
+| Original encoded | `clip_features_original_encoded.zip` | `6b9d5c19eb2eb8d8000e27a10277e204f40a9d00ef7a1b89718ab92c674a996d` |
+| Standardized | `clip_features_standardized.zip` | `f74bde073d33433a9c37cbbb452eb8c706353714430c13461df00453da57bfb7` |
+| Lossless re-encoded | `clip_features_reencode_only.zip` | `991da95ada45dccfdcc97e875ecc6fc584a1c0a0e6d5a75fcb04b7a7953cf75b` |
+| Common JPEG Q95 | `clip_features_jpeg_common.zip` | `a5240dc8671bb5c62731047a32044c6d05cea71fc2d2fc094a64711fb93270ea` |
+
+Verify a download before extraction:
+
+```powershell
+(Get-FileHash .\clip_features_standardized.zip -Algorithm SHA256).Hash
+```
+
+Person 2 can join `feature_index.csv` to any committed split manifest using `image_id` and train a linear classifier directly. For the completed strict experiment:
+
+```powershell
+python scripts\format_ablation.py `
+  --split-manifest data\splits\biggan_to_diffusion_strict.csv `
+  --additional-test-manifest data\splits\biggan_to_midjourney_separate_test.csv `
+  --feature-index data\features\standardized\ViT-B-32-quickgelu-openai-e8d939fb5c8e47f6\feature_index.csv `
+  --variant standardized
+```
+
+### Option B — reproduce features from Tiny-GenImage
+
+Install the Hugging Face CLI and download the pinned dataset revision:
+
+```powershell
+python -m pip install --upgrade huggingface_hub
+hf download TheKernel01/Tiny-GenImage `
+  --repo-type dataset `
+  --revision 89c4fe9efd0ebc7ce5c7641ef57d578ccd639c69 `
+  --local-dir data\raw\tiny_genimage_hf
+python scripts\inspect_datasets.py
+python scripts\make_splits.py
+python scripts\prepare_images.py standardized
+python scripts\extract_clip.py standardized
+```
+
+Person 2 still needs original or reproducibly processed images for the CNN baseline. Person 3 needs original or processed images to create new JPEG/resizing robustness conditions. Image data is not included in the release. Regenerate `data/manifests/master_manifest.csv` with `inspect_datasets.py` when source Parquet rows, filenames, or image paths are required; generated manifests must not rely on another user's absolute paths.
+
+The release features are derived from Tiny-GenImage/GenImage and are distributed conservatively under CC BY-NC-SA 4.0 for non-commercial research and teaching, with attribution and share-alike requirements. Review the licence notice inside each archive.
+
 ### Loading features safely
 
 Each condition produces a `feature_index.csv`. Join it to a split using `image_id`, then load both `feature_file` and `feature_row`. Always verify the stored ID:
