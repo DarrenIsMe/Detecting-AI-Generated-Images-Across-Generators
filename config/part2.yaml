@@ -1,0 +1,24 @@
+# Part 2 (main experiments). Paths are relative to the repo root.
+local_root: data/part2        # gitignored: features, predictions, seed heads
+results_root: results/part2   # committed: metrics, full-data heads, tables
+min_side: 112
+backbones:
+  resnet50: {kind: torchvision, weights: IMAGENET1K_V1, dim: 2048}
+  clip_b32: {kind: open_clip, model_name: ViT-B-32-quickgelu, pretrained: openai, dim: 512}
+  clip_l14: {kind: open_clip, model_name: ViT-L-14-quickgelu, pretrained: openai, dim: 768}
+pipelines:
+  A: {size: 224}
+  B: {crop: 112, grid: 16, size: 224}
+formats: [raw, matched_jpeg]
+head: {C_grid: [0.01, 0.1, 1.0, 10.0, 100.0], max_iter: 5000}
+seeds: [4001, 4002, 4003]
+subsample_fraction: 0.8
+extraction: {batch_size: 64, device: auto, decode_threads: 8}
+reproduction:
+  backbone: clip_b32
+  pipeline: A
+  format: raw
+  C: 1.0
+  max_iter: 2000
+  tolerance: 0.005
+  targets: {validation_accuracy: 0.986, test_accuracy: 0.61272, midjourney_accuracy: 0.515}

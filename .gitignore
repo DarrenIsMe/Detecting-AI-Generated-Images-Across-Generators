@@ -63,3 +63,6 @@ temp/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Part 2 local outputs (features, predictions, seed heads)
+data/part2/

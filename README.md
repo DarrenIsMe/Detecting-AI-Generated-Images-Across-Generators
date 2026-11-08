@@ -263,6 +263,119 @@ The current lightweight suite reports 12 passing tests. The completed full-data 
 - Original encoding is severely class-confounded: all real images are JPEG and all fake images are PNG.
 - `original_encoded` refers to Tiny-GenImage's distributed bytes, not proven byte-identical copies from full GenImage.
 
+## Part 2: main experiments
+
+Part 2 trains a logistic-regression head on frozen features (OpenCLIP ViT-B/32 and ViT-L/14, torchvision ResNet-50) under two preprocessing pipelines (A: resize 224 + centre crop; B: native 112x112 crop resized to 224) and two formats (`raw`, `matched_jpeg`). Part 1's files, splits and caches are not modified. Settings live in `config/part2.yaml`; code is in `scripts/part2/` with CLIs `scripts/part2_*.py`.
+
+### Setup
+
+Follow Installation and Dataset setup above, with the pinned dataset revision and all commands run from the repo root in PowerShell:
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\python -m pip install --upgrade pip
+.\.venv\Scripts\python -m pip install -r requirements.txt huggingface_hub
+.\.venv\Scripts\python -c "import torch; print(torch.__version__, torch.cuda.is_available())"   # 2.11.0+cu128 True
+.\.venv\Scripts\python -m pytest -q                                                              # unit tests
+.\.venv\Scripts\hf download TheKernel01/Tiny-GenImage --repo-type dataset --revision 89c4fe9efd0ebc7ce5c7641ef57d578ccd639c69 --local-dir data\raw\tiny_genimage_hf
+.\.venv\Scripts\python scripts\inspect_datasets.py       # regenerates data\manifests\master_manifest.csv
+git restore results/dataset_statistics                   # keep Part 1's committed audit files
+.\.venv\Scripts\python scripts\validate_pipeline.py --master-manifest data\manifests\master_manifest.csv
+```
+
+`py` below means `.\.venv\Scripts\python`.
+
+### Commands, in order
+
+```powershell
+py scripts\part2_jpeg_profile.py             # modal JPEG quality/subsampling of training reals -> results\part2\jpeg_profile.json
+py scripts\part2_extract.py --all            # 12 feature sets (3 backbones x A/B x raw/matched_jpeg), clip_l14 first -> data\part2\features\
+py scripts\part2_run.py --reproduce          # gate: must reproduce Part 1's CLIP B/32 baseline (status "ok") before anything else is trusted
+py scripts\part2_run.py --grid               # strict + logo (full fit + seeds 4001-4003), cross-condition pairs, final classifiers
+py scripts\part2_tables.py                   # the report tables (prints WARNING lines for incomplete conditions)
+py scripts\part2_predict.py --image PATH --head results\part2\heads\clip_l14__A__raw__final__all__full.json   # one image -> {"p_fake": ..., "label": ...}
+```
+
+The matched-JPEG recipe is the mode over the union of the strict-train and LOGO-train reals; `part2_jpeg_profile.py` also records each protocol's own profile under `per_protocol` and stops if their modes differ.
+
+A single configuration can be run with `part2_run.py --backbone B --pipeline P --format F --protocol {strict,logo,final} [--test-pipeline P2 --test-format F2] [--no-seeds]`; finished runs are skipped unless `--overwrite` (see "Cache and result reuse").
+
+### Preprocessing and numerics
+
+- Images are decoded with Pillow and converted to RGB. There is no EXIF transpose (as in Part 1's `original_encoded` path): an image with an EXIF orientation tag is used as stored.
+- Pipeline geometry (A: size 224; B: crop 112, grid 16, size 224) and the 112 px floor are hard-coded in `scripts/part2/preprocess.py` and repeated in `config/part2.yaml`, which is what feature specs and heads record. `part2_extract.py`, `part2_run.py` and `score_images` refuse to start if the two disagree.
+- Embeddings are computed in fp32, but PyTorch's default `torch.backends.cudnn.allow_tf32 = True` is left on, so on the RTX 4070 the convolutions (all of ResNet-50, and the patch-embedding convolution of both CLIP models) run in TF32. Matrix multiplications (attention, MLP and projection layers) stay in full fp32, since `torch.backends.cuda.matmul.allow_tf32` defaults to `False`. Features re-extracted on another GPU, or on the CPU, can therefore differ slightly.
+
+### Cache and result reuse
+
+- A feature cache is reused when its spec hash matches: backbone and pipeline config blocks, JPEG recipe, and the ordered image ids. The hash does not cover the code, so **after any change to preprocessing or extraction code, re-extract with `part2_extract.py --overwrite`**. `part2_run.py` recomputes the hash from the current `config/part2.yaml` and refuses a cache built with other settings.
+- Every run records a fingerprint in its head and in every metric row: the id, spec hash and `created_at` of its train and test feature sets, plus `C_grid`, `max_iter`, `subsample_fraction`, `min_side` and the seed. `part2_run.py` skips a run only when its outputs exist with the current fingerprint; otherwise it prints `stale <run_id>: re-running` and fits it again. Re-extracting features or changing those settings therefore never leaves old metrics in the tables.
+
+### Where outputs live
+
+| Output | Location |
+|---|---|
+| Metric rows (one JSON list per run) | `results/part2/metrics/<run_id>.json` |
+| Full-data heads | `results/part2/heads/<run_id>.json` |
+| Reproduction check, exclusion counts | `results/part2/reproduction.json`, `results/part2/exclusions.json` |
+| Report tables (Markdown + CSV) | `results/part2/tables/` |
+| Features, seed heads, predictions (gitignored) | `data/part2/features/`, `data/part2/heads/`, `data/part2/predictions/` |
+
+Only the report tables and `jpeg_profile.json` are committed; the metric rows, heads, reproduction and exclusion files are regenerated by the commands above.
+
+### Report tables
+
+`part2_tables.py` writes five tables (Markdown and CSV) to `results/part2/tables/`:
+
+- `strict_overall` (per condition) and `strict_per_generator` (per condition and strict test generator; Midjourney has `in_overall = False`) give each metric as the deterministic full-data fit (`<metric>_full`) and the mean and sd (ddof=1) over seeds 4001-4003 (`<metric>_mean`, `<metric>_sd`), with `n_seeds`.
+- `logo_per_fold` gives the same per held-out generator, plus one `mean_over_folds` row per condition: each fit's mean over the 7 folds, then the mean and sd of those means across seeds, next to the full-data fold mean. `n_folds` is the number of folds a row averages.
+- `cross_condition` uses full-data heads only (cross-condition runs are not seeded). It shows `<metric>_same`, the head scored on its own training condition, next to `<metric>_cross`, the same head on the test condition, so the transfer drop is `_same - _cross`; LOGO pairs are averaged over folds.
+- `final_validation` is headed "in-distribution only, not generalisation".
+
+The oracle balanced accuracy appears as `oracle_bacc_upper_bound`, because its threshold is picked on the test labels. The script prints a `WARNING:` line for every condition with fewer than 3 seeds or 7 LOGO folds, and for metric rows that mix feature extractions or settings.
+
+### The final classifier
+
+The `final` protocol trains on all seven generators. Its train and validation sets are the union of the seven LOGO folds' train and validation rows, de-duplicated by `image_id`; any duplicate group present in both is dropped from both. The canonical single-image head is `results/part2/heads/clip_l14__A__raw__final__all__full.json` (ViT-L/14, standard CLIP preprocessing, raw files). The other three final heads (`clip_l14__A__matched_jpeg__…`, `clip_l14__B__raw__…`, `clip_l14__B__matched_jpeg__…`) are comparisons.
+
+### Scoring API for Part 3
+
+The head's metadata selects the backbone and pipeline. Load the backbone once and pass it to every call:
+
+```python
+from pathlib import Path
+from PIL import Image
+from common import load_config                     # scripts/ must be on sys.path
+from part2.backbones import load_backbone
+from part2.scoring import score_images
+
+root = Path.cwd()                                  # the repo root
+cfg = load_config(root, "config/part2.yaml")
+head = root / "results/part2/heads/clip_l14__A__raw__final__all__full.json"
+backbone = load_backbone("clip_l14", cfg, root)    # slow: load once, reuse for every call
+p_fake = score_images([Image.open("example.png")], head, backbone=backbone)   # numpy array of P(fake)
+```
+
+`embed_images(images, backbone, pipeline)` returns the L2-normalised embeddings. Before scoring, `score_images` checks the feature-extraction settings recorded in the head (backbone and pipeline config blocks, normalisation) against `config/part2.yaml` and against the backbone's name, dimension and normalisation. It raises `ValueError` on any mismatch, and for heads written before these settings were recorded (re-run `part2_run.py` with `--overwrite` to regenerate them). It raises `ImageTooSmall` for images below the minimum size of the head's pipeline.
+
+No format conversion happens at inference: images are scored as given. A `matched_jpeg` head was trained on fakes re-encoded as JPEG, so scoring it in its own condition means re-encoding the fakes first (reals are never re-encoded):
+
+```python
+from part2.formats import load_condition_image, load_jpeg_spec
+
+spec = load_jpeg_spec(Path("results/part2/jpeg_profile.json"))           # also in the head's meta["jpeg"]
+image = load_condition_image(encoded_bytes, label, "matched_jpeg", spec)  # label 1: re-encoded; label 0: unchanged
+```
+
+Scoring the original PNG fakes with a `matched_jpeg` head is a cross-condition test.
+
+### Caveats
+
+- Images whose shorter side is under 112 px are excluded from every condition and protocol (counts per split in `results/part2/exclusions.json`); only the reproduction check keeps them.
+- `matched_jpeg` re-encodes fakes only, at the training reals' modal JPEG quality and subsampling; reals are never re-encoded. It reduces, but does not prove away, the real-JPEG versus fake-PNG confound.
+- Oracle balanced accuracy (`oracle_bacc_upper_bound` in the tables) uses the best threshold chosen on the test labels, so it is an upper bound, not a result.
+- The `final` classifier is trained on all 7 generators and is for the single-image interface only. Its validation numbers are in-distribution and are not evidence of generalisation; cross-generator evidence comes from the `strict` and `logo` protocols.
+
 ## AI-use disclosure
 
 Generative AI tools assisted with code drafting, debugging, documentation, and reproducibility checks. The student reviewed the implementation, ran the reported tests and experiments, and remains responsible for the submitted work. The team should include this disclosure, along with any course-mandated tool names or interaction records, in the final NTU SC4001 submission according to the current course requirements.
