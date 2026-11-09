@@ -1,0 +1,40 @@
+# Part 3 (robustness and analysis). Paths are relative to the repo root.
+# Part 3 only reads Part 1 and Part 2 files; it never modifies them.
+
+local_root: data/part3        # gitignored (the run script writes a .gitignore inside it): embeddings, predictions
+results_root: results/part3   # committed: sample list, run metadata, tables, figures
+
+# The four committed ViT-L/14 strict heads from Part 2: pipeline A/B x format raw/matched_jpeg.
+# Strict = trained on BigGAN + reals, tested on unseen diffusion generators (+ Midjourney separately),
+# so every perturbation result is also a result on generators the detector never saw.
+backbone: clip_l14
+protocol: strict
+heads:
+  - results/part2/heads/clip_l14__A__raw__strict__strict__full.json
+  - results/part2/heads/clip_l14__A__matched_jpeg__strict__strict__full.json
+  - results/part2/heads/clip_l14__B__raw__strict__strict__full.json
+  - results/part2/heads/clip_l14__B__matched_jpeg__strict__strict__full.json
+
+# Test images only. Each strict group has 2,500 real + 2,500 fake images; we draw a fixed,
+# seeded sample per class per group (null = use every test image).
+sample:
+  per_class_per_group: 1000
+  seed: 4001
+
+# Applied to the clean test image (for matched_jpeg heads: after the fakes are re-encoded with the
+# head's JPEG recipe), before the head's own preprocessing pipeline.
+#   jpeg:  JPEG quality 1-100, Pillow's default chroma subsampling (4:2:0), like typical uploads
+#   scale: downscale factor in (0, 1] of the native size, bicubic
+# When both are given, the image is downscaled first, then compressed (as a social-media upload is).
+perturbations:
+  clean: {}
+  jpeg_q95: {jpeg: 95}
+  jpeg_q75: {jpeg: 75}
+  jpeg_q50: {jpeg: 50}
+  jpeg_q30: {jpeg: 30}
+  resize_0.75: {scale: 0.75}
+  resize_0.5: {scale: 0.5}
+  resize_0.25: {scale: 0.25}
+  resize_0.5_jpeg_q75: {scale: 0.5, jpeg: 75}
+
+batch_size: 64
