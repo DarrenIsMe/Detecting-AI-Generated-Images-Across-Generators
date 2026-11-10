@@ -1,0 +1,157 @@
+{
+  "backbone": "clip_l14",
+  "config": "config\\part3_logo.yaml",
+  "created_at": "2026-11-10T06:29:52+00:00",
+  "heads": [
+    "clip_l14__A__raw__logo__ADM__full",
+    "clip_l14__A__raw__logo__BigGAN__full",
+    "clip_l14__A__raw__logo__GLIDE__full",
+    "clip_l14__A__raw__logo__Midjourney__full",
+    "clip_l14__A__raw__logo__SD15__full",
+    "clip_l14__A__raw__logo__VQDM__full",
+    "clip_l14__A__raw__logo__Wukong__full",
+    "clip_l14__A__matched_jpeg__logo__ADM__full",
+    "clip_l14__A__matched_jpeg__logo__BigGAN__full",
+    "clip_l14__A__matched_jpeg__logo__GLIDE__full",
+    "clip_l14__A__matched_jpeg__logo__Midjourney__full",
+    "clip_l14__A__matched_jpeg__logo__SD15__full",
+    "clip_l14__A__matched_jpeg__logo__VQDM__full",
+    "clip_l14__A__matched_jpeg__logo__Wukong__full",
+    "clip_l14__B__raw__logo__ADM__full",
+    "clip_l14__B__raw__logo__BigGAN__full",
+    "clip_l14__B__raw__logo__GLIDE__full",
+    "clip_l14__B__raw__logo__Midjourney__full",
+    "clip_l14__B__raw__logo__SD15__full",
+    "clip_l14__B__raw__logo__VQDM__full",
+    "clip_l14__B__raw__logo__Wukong__full",
+    "clip_l14__B__matched_jpeg__logo__ADM__full",
+    "clip_l14__B__matched_jpeg__logo__BigGAN__full",
+    "clip_l14__B__matched_jpeg__logo__GLIDE__full",
+    "clip_l14__B__matched_jpeg__logo__Midjourney__full",
+    "clip_l14__B__matched_jpeg__logo__SD15__full",
+    "clip_l14__B__matched_jpeg__logo__VQDM__full",
+    "clip_l14__B__matched_jpeg__logo__Wukong__full"
+  ],
+  "jpeg_recipe": {
+    "matched_jpeg": {
+      "quality": 96,
+      "subsampling": "4:4:4"
+    },
+    "raw": null
+  },
+  "n_group_rows": 7000,
+  "n_images": 5463,
+  "per_class_per_group": 500,
+  "perturbations": [
+    {
+      "jpeg": null,
+      "name": "clean",
+      "scale": null,
+      "signature": "5a883ca4857923e6368809266576d655d9d856e8bf87c3fa092ec630a908ec12",
+      "skipped_images_per_combo": {
+        "A/matched_jpeg": 0,
+        "A/raw": 0,
+        "B/matched_jpeg": 0,
+        "B/raw": 0
+      }
+    },
+    {
+      "jpeg": 95,
+      "name": "jpeg_q95",
+      "scale": null,
+      "signature": "c6c1b17ac68a2acc2edb20c92b24ba0b5e0c6189ae9490ba46aa28691a830a5a",
+      "skipped_images_per_combo": {
+        "A/matched_jpeg": 0,
+        "A/raw": 0,
+        "B/matched_jpeg": 0,
+        "B/raw": 0
+      }
+    },
+    {
+      "jpeg": 75,
+      "name": "jpeg_q75",
+      "scale": null,
+      "signature": "6526a6706fabddf682bce3aa63c15ce4fa5bb1f9efa2a493f26e3775231e3de0",
+      "skipped_images_per_combo": {
+        "A/matched_jpeg": 0,
+        "A/raw": 0,
+        "B/matched_jpeg": 0,
+        "B/raw": 0
+      }
+    },
+    {
+      "jpeg": 50,
+      "name": "jpeg_q50",
+      "scale": null,
+      "signature": "e728138f72025fc356c31225f8e3ab89fb16972b707c88840779385bea8d4c79",
+      "skipped_images_per_combo": {
+        "A/matched_jpeg": 0,
+        "A/raw": 0,
+        "B/matched_jpeg": 0,
+        "B/raw": 0
+      }
+    },
+    {
+      "jpeg": 30,
+      "name": "jpeg_q30",
+      "scale": null,
+      "signature": "b1e42ff8ab4d21176bfacaac3a1b44c073b826ce8bff5b869fb1b04305e884d3",
+      "skipped_images_per_combo": {
+        "A/matched_jpeg": 0,
+        "A/raw": 0,
+        "B/matched_jpeg": 0,
+        "B/raw": 0
+      }
+    },
+    {
+      "jpeg": null,
+      "name": "resize_0.75",
+      "scale": 0.75,
+      "signature": "f5eec30975b9cb455077fd6b4c120d44fb8e8b1a94274f17d8d1574f7b5feca4",
+      "skipped_images_per_combo": {
+        "A/matched_jpeg": 0,
+        "A/raw": 0,
+        "B/matched_jpeg": 524,
+        "B/raw": 524
+      }
+    },
+    {
+      "jpeg": null,
+      "name": "resize_0.5",
+      "scale": 0.5,
+      "signature": "a8b29c0e4437dec5b13a2f18992aebf3ebc0af47b0835779b54e5536b12db421",
+      "skipped_images_per_combo": {
+        "A/matched_jpeg": 0,
+        "A/raw": 0,
+        "B/matched_jpeg": 591,
+        "B/raw": 591
+      }
+    },
+    {
+      "jpeg": null,
+      "name": "resize_0.25",
+      "scale": 0.25,
+      "signature": "c595b1cc65cd6f0b972b75543c5c3c99440726c35e7998c70ed7f5d2b7479a74",
+      "skipped_images_per_combo": {
+        "A/matched_jpeg": 0,
+        "A/raw": 0,
+        "B/matched_jpeg": 3742,
+        "B/raw": 3742
+      }
+    },
+    {
+      "jpeg": 75,
+      "name": "resize_0.5_jpeg_q75",
+      "scale": 0.5,
+      "signature": "189b94c48de2af8b1db978c441544f511c749e60a5971592b9630a03e0e48a69",
+      "skipped_images_per_combo": {
+        "A/matched_jpeg": 0,
+        "A/raw": 0,
+        "B/matched_jpeg": 591,
+        "B/raw": 591
+      }
+    }
+  ],
+  "protocol": "logo",
+  "seed": 4001
+}
