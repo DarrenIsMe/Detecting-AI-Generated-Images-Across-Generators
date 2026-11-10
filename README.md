@@ -438,6 +438,77 @@ print(group_metrics(np.array(labels), np.array(scores)))   # AUROC, AP, balanced
 - Oracle balanced accuracy (`oracle_bacc_upper_bound` in the tables) uses the best threshold chosen on the test labels, so it is an upper bound, not a result.
 - The `final` classifier is trained on all 7 generators and is for the single-image interface only. Its validation numbers are in-distribution and are not evidence of generalisation; cross-generator evidence comes from the `strict` and `logo` protocols.
 
+## Part 3: robustness and analysis
+
+Part 3 measures how the Part 2 ViT-L/14 detectors behave when test images are JPEG-compressed or downscaled after they were made, and whether raw heads rely on the real-JPEG versus fake-PNG confound. It perturbs test images only and trains nothing; Part 1 and Part 2 files are not modified. Settings live in `config/part3.yaml` (strict) and `config/part3_logo.yaml` (LOGO); code is in `scripts/part3/` with CLIs `scripts/part3_*.py`.
+
+### Setup
+
+Follow the Part 2 Setup above (environment, pinned dataset, `inspect_datasets.py`). Feature extraction and Part 2 runs are not needed: the committed ViT-L/14 heads are used directly. Figures need matplotlib and Markdown tables need tabulate:
+
+```powershell
+.\.venv\Scripts\python -m pip install matplotlib tabulate
+.\.venv\Scripts\python -m pytest -q                       # includes tests/test_part3.py
+```
+
+### Commands, in order
+
+```powershell
+py scripts\part3_run.py --per-class 10                       # quick wiring check, a few minutes
+py scripts\part3_run.py                                      # strict: 4 heads, 12,000 test images, 9 conditions
+py scripts\part3_tables.py                                   # tables, clean check, degradation curves
+py scripts\part3_analysis.py                                 # confusion matrices, flips, score histograms, failure cases, t-SNE
+py scripts\part3_run.py --config config\part3_logo.yaml      # LOGO: 28 heads over the 7 folds
+py scripts\part3_tables.py --config config\part3_logo.yaml
+py scripts\part3_analysis.py --config config\part3_logo.yaml
+```
+
+`part3_run.py --only jpeg_q50 resize_0.5` computes only those conditions now, `--overwrite` recomputes cached ones, and `--device cpu|cuda` picks the device. `part3_analysis.py --no-images` skips the failure-case pictures, which read the Parquet shards; everything else in it needs no GPU.
+
+### What is tested
+
+| | Strict | LOGO |
+|---|---|---|
+| Heads | `clip_l14__{A,B}__{raw,matched_jpeg}__strict__strict__full` | `clip_l14__{A,B}__{raw,matched_jpeg}__logo__<fold>__full`, each scoring only its own fold |
+| Test groups | ADM, GLIDE, SD15, VQDM, Wukong (pooled); Midjourney separately | each of the 7 held-out generators |
+| Sample | 1,000 real + 1,000 fake per group, seed 4001 | 500 + 500 per fold; the folds share one pool of 2,500 test reals |
+
+Perturbations: `clean`; JPEG quality 95, 75, 50 and 30 (Pillow, default 4:2:0 subsampling); bicubic downscale to 0.75, 0.5 and 0.25 of the native size, not upscaled back; and a 0.5 downscale followed by JPEG 75.
+
+Per image: decode → for `matched_jpeg` heads, re-encode fakes with the head's recipe (`load_condition_image`; reals unchanged) → perturb → the head's pipeline and ViT-L/14 embedding → P(fake). Part 2's `check_config_matches_code`, `check_head_settings`, `check_backbone` and `assert_no_leakage` run first, as in `score_images`. Each image is embedded once per condition and shared by every head that needs it. Images whose shorter side falls below 112 px after the perturbation cannot use pipeline B; they are skipped and counted (`coverage` in the tables, hollow markers in the curves), not dropped silently.
+
+### Cache and reuse
+
+Embeddings are cached per perturbation in `data/part3/embeddings/` (`data/part3/logo/embeddings/` for LOGO) with a hash of the sampled image ids, the perturbation, the JPEG recipe, the backbone and pipeline settings, and a code version. A cache is reused only when the hash matches, so an interrupted run resumes, and a changed sample or setting is recomputed. The hash does not cover the code itself: after changing perturbation or embedding code, re-run with `--overwrite` (or raise `CACHE_VERSION` in `part3_run.py`).
+
+### Where outputs live
+
+| Output | Location |
+|---|---|
+| Sampled images, run settings | `results/part3/sample.csv`, `results/part3/run_meta.json` |
+| Metric tables (Markdown + CSV) | `results/part3/tables/robustness_overall`, `robustness_per_group`, `clean_check` |
+| Analysis tables (CSV) | `results/part3/tables/confusion_counts`, `flips`, `embedding_shift`, `failure_cases` |
+| Figures | `results/part3/figures/`: degradation curves, confusion matrices, score distributions, failure cases, t-SNE |
+| LOGO equivalents | `results/part3/logo/` |
+| Embeddings, per-image predictions (gitignored) | `data/part3/` |
+
+`data/part3/` carries its own `.gitignore`, so the shared `.gitignore` is unchanged.
+
+### Reading the results
+
+- **Clean check first.** `clean_check` sets the clean condition on the Part 3 sample beside Part 2's published `strict_overall` or `logo_per_fold` (`mean_over_folds`) results, and `part3_tables.py` prints a `WARNING:` line when AUROC differs by more than 0.02. Do not use the perturbation results until it passes.
+- Metrics come from Part 2's `group_metrics`. Balanced accuracy, fake recall and real specificity use the 0.5 threshold; AUROC and AP do not. A drop at 0.5 with a steady AUROC means the scores shifted rather than the signal disappearing. Every table gives the change from `clean`.
+- Strict overall pools the five diffusion groups, as `strict_overall` does; LOGO reports the mean over the 7 folds with `_sd` across folds, as `mean_over_folds` does.
+
+### Caveats
+
+- All original reals are JPEG and all fakes PNG, so JPEG compression re-compresses reals but compresses fakes for the first time. This asymmetry is what Part 3 tests; it does not remove artefacts left by the reals' original encoding.
+- Results are on a sample, so clean numbers differ slightly from Part 2's full-test tables.
+- Strong downscaling leaves pipeline B scoring only part of the images: the 256 px ADM, GLIDE and VQDM images become 64 px at 0.25x, and BigGAN's 128 px images fall below 112 px at 0.75x. Those points cover mostly larger images and are flagged.
+- One JPEG encoder (Pillow, 4:2:0 subsampling); other platforms' encoders and settings differ.
+- The LOGO folds share one pool of test reals, so the sd across folds is a rough spread, not a confidence interval.
+- t-SNE plots are qualitative; `embedding_shift.csv` (the distance between the mean real and mean fake embedding) is the quantitative counterpart.
+
 ## AI-use disclosure
 
 Generative AI tools assisted with code drafting, debugging, documentation, and reproducibility checks. The student reviewed the implementation, ran the reported tests and experiments, and remains responsible for the submitted work. The team should include this disclosure, along with any course-mandated tool names or interaction records, in the final NTU SC4001 submission according to the current course requirements.

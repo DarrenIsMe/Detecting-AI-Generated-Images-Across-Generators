@@ -38,3 +38,12 @@ perturbations:
   resize_0.5_jpeg_q75: {scale: 0.5, jpeg: 75}
 
 batch_size: 64
+
+# Used by scripts/part3_analysis.py (reads the run's saved predictions and embeddings; no GPU).
+analysis:
+  pipeline: A                 # detector condition for failure cases, t-SNE and score histograms
+  format: raw                 # raw = the detector exposed to the real-JPEG / fake-PNG shortcut
+  conditions: [jpeg_q50, resize_0.5_jpeg_q75]   # shown next to clean in every analysis figure
+  n_failures: 12              # images per failure-case figure
+  tsne_per_class: 500         # t-SNE points per class per condition
+  tsne_seed: 4001

@@ -1,0 +1,49 @@
+# Part 3 robustness under leave-one-generator-out (LOGO). Paths are relative to the repo root.
+# Same perturbations as config/part3.yaml, so strict and LOGO results compare directly.
+#
+# Why LOGO as well as strict: the strict heads (trained on BigGAN only) already miss most unseen
+# fakes at the 0.5 threshold, so a further drop in fake recall is hard to see. Each LOGO head is
+# trained on six generators and tested on the seventh; these detectors work well on clean images,
+# and the seven folds give seven independent detectors, so results come with a spread (sd).
+
+local_root: data/part3/logo
+results_root: results/part3/logo
+
+backbone: clip_l14
+protocol: logo
+# {fold} is replaced by each held-out generator: ADM, BigGAN, GLIDE, Midjourney, SD15, VQDM, Wukong.
+# Each head scores only its own fold's test group (that generator's fakes + the matched reals).
+heads:
+  - results/part2/heads/clip_l14__A__raw__logo__{fold}__full.json
+  - results/part2/heads/clip_l14__A__matched_jpeg__logo__{fold}__full.json
+  - results/part2/heads/clip_l14__B__raw__logo__{fold}__full.json
+  - results/part2/heads/clip_l14__B__matched_jpeg__logo__{fold}__full.json
+
+# Per fold, per class. All seven folds share the same 2,500 test reals, so 500 per class per
+# fold gives 3,500 fakes plus about 2,000 distinct reals to embed. 500 rather than 1,000 halves
+# the run time; averaged over 7 folds the sampling noise stays well below the effects measured.
+sample:
+  per_class_per_group: 500
+  seed: 4001
+
+perturbations:
+  clean: {}
+  jpeg_q95: {jpeg: 95}
+  jpeg_q75: {jpeg: 75}
+  jpeg_q50: {jpeg: 50}
+  jpeg_q30: {jpeg: 30}
+  resize_0.75: {scale: 0.75}
+  resize_0.5: {scale: 0.5}
+  resize_0.25: {scale: 0.25}
+  resize_0.5_jpeg_q75: {scale: 0.5, jpeg: 75}
+
+batch_size: 64
+
+# Used by scripts/part3_analysis.py (see config/part3.yaml for what each setting does).
+analysis:
+  pipeline: A
+  format: raw
+  conditions: [jpeg_q50, resize_0.5_jpeg_q75]
+  n_failures: 12
+  tsne_per_class: 500
+  tsne_seed: 4001
